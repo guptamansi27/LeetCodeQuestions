@@ -5,8 +5,17 @@ class Solution {
             num1[m]=num2[i];
             m++;
         }
-        
-        Arrays.sort(num1);
-
+        //method1 - Using Predefined function
+       // Arrays.sort(num1);
+        //method1 - brute force method
+        for(int i=0;i<len-1;i++){
+            for(int j=i+1;j<len;j++){
+                if(num1[i]>num1[j]){
+                    int temp=num1[i];
+                    num1[i]=num1[j];
+                    num1[j]=temp;
+                }
+            }
+        }
     }
 }
