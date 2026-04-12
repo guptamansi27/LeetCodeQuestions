@@ -1,36 +1,37 @@
 class Solution {
     public String convert(String s, int numRows) {
-        // Special case
-        if (numRows == 1) return s;
+        // Edge case
+        if (numRows == 1 || s.length() <= numRows) {
+            return s;
+        }
 
-        String[] rows = new String[numRows];
+        StringBuilder[] rows = new StringBuilder[numRows];
         
-        // Initialize
+        // Initialize rows
         for (int i = 0; i < numRows; i++) {
-            rows[i] = "";
+            rows[i] = new StringBuilder();
         }
 
-        int i = 0;          // current row
-        boolean down = true;
+        int currRow = 0;
+        boolean goingDown = false;
 
-        for (char ch : s.toCharArray()) {
-            rows[i] += ch;
+        for (char c : s.toCharArray()) {
+            rows[currRow].append(c);
 
-            // change direction
-            if (i == 0) down = true;
-            else if (i == numRows - 1) down = false;
+            // Change direction at top/bottom
+            if (currRow == 0 || currRow == numRows - 1) {
+                goingDown = !goingDown;
+            }
 
-            // move row
-            if (down) i++;
-            else i--;
+            currRow += goingDown ? 1 : -1;
         }
 
-        // join all rows
-        String ans = "";
-        for (String row : rows) {
-            ans += row;
+        // Combine all rows
+        StringBuilder result = new StringBuilder();
+        for (StringBuilder row : rows) {
+            result.append(row);
         }
 
-        return ans;
+        return result.toString();
     }
 }
